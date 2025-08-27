@@ -85,9 +85,85 @@
     </div>
   </div>
 
-  <!-- Script -->
-  <script>
-    // Sidebar toggle (mobile)
+</body>
+</html>
+
+
+<script>
+inicializarEquipamentosPadrao();
+
+    window.addEventListener('DOMContentLoaded', () => {
+  inicializarFuncionarios();
+  renderizarFuncionarios(); // Certifique-se que essa função já existe e popula a lista
+});
+
+    
+   window.addEventListener('DOMContentLoaded', () => {
+  inicializarEquipamentos();
+  renderizarEquipamentos(); // ou qualquer função que popula a tabela
+});
+
+
+    document.addEventListener('DOMContentLoaded', () => {
+  renderizarFuncionarios();
+});
+
+// Inicializa os equipamentos padrão
+function inicializarEquipamentosPadrao() {
+  let equipamentos = JSON.parse(localStorage.getItem('equipamentos')) || [];
+
+  // Se não houver equipamentos salvos, cria lista padrão
+  if (equipamentos.length === 0) {
+    const equipamentosPadrao = [
+      { nome: 'Máquina A - 21257', tipo: 'Notebook' },
+      { nome: 'Máquina B - 24976', tipo: 'Desktop' },
+      { nome: 'Máquina C - 24176', tipo: 'Servidor' },
+      { nome: 'Máquina D - 21796', tipo: 'Notebook' },
+      { nome: 'Máquina E - 21785', tipo: 'Desktop' },
+      { nome: 'Máquina F - 20149', tipo: 'Servidor' },
+      { nome: 'Máquina G - 24552', tipo: 'Notebook' },
+      { nome: 'Máquina H - 21456', tipo: 'Desktop' }
+    ];
+
+    // Salva no localStorage
+    localStorage.setItem('equipamentos', JSON.stringify(equipamentosPadrao));
+  }
+}
+
+// Renderiza a lista de equipamentos na aba
+function renderizarEquipamentos() {
+  const container = document.getElementById('listaEquipamentosPrincipal');
+  container.innerHTML = ''; // Limpa conteúdo anterior
+
+  const equipamentos = JSON.parse(localStorage.getItem('equipamentos')) || [];
+
+  // Se não houver equipamentos, mostra mensagem
+  if (equipamentos.length === 0) {
+    container.innerHTML = '<p class="text-gray-600">Nenhum equipamento cadastrado.</p>';
+    return;
+  }
+
+  // Para cada equipamento, cria o elemento HTML
+  equipamentos.forEach(eq => {
+    const div = document.createElement('div');
+    div.className = 'p-4 bg-white rounded shadow mb-4';
+
+    // Agora o nome já inclui o número de série
+    div.innerHTML = `
+      <h3 class="font-bold text-lg">${eq.nome}</h3>
+      <p class="text-gray-700">Tipo: ${eq.tipo}</p>
+    `;
+
+    container.appendChild(div);
+  });
+}
+
+// Chamada ao carregar a página
+inicializarEquipamentosPadrao();
+renderizarEquipamentos();
+
+
+ // Sidebar toggle (mobile)
     document.getElementById("toggleSidebar").addEventListener("click", () => {
       const sidebar = document.getElementById("sidebar");
       sidebar.classList.toggle("-translate-x-full");
@@ -185,13 +261,7 @@
     document.addEventListener("DOMContentLoaded", () => {
       showTab("dashboard");
     });
-  </script>
-</body>
-</html>
-
-
-<script>
-  // Sidebar toggle mobile
+// Sidebar toggle mobile
   document.getElementById("toggleSidebar").addEventListener("click", () => {
     document.getElementById("sidebar").classList.toggle("-translate-x-full");
   });
@@ -199,87 +269,7 @@
   /* ---- SEU SCRIPT ORIGINAL AQUI (renderização, chamados, dashboard, etc) ---- */
   // ... (mantém o JS igual ao seu, apenas adicionei o toggle do menu)
 
-</script>
-</body>
-</html>
-
-
-<script>
-inicializarEquipamentosPadrao();
-
-    window.addEventListener('DOMContentLoaded', () => {
-  inicializarFuncionarios();
-  renderizarFuncionarios(); // Certifique-se que essa função já existe e popula a lista
-});
-
-    
-   window.addEventListener('DOMContentLoaded', () => {
-  inicializarEquipamentos();
-  renderizarEquipamentos(); // ou qualquer função que popula a tabela
-});
-
-
-    document.addEventListener('DOMContentLoaded', () => {
-  renderizarFuncionarios();
-});
-
-// Inicializa os equipamentos padrão
-function inicializarEquipamentosPadrao() {
-  let equipamentos = JSON.parse(localStorage.getItem('equipamentos')) || [];
-
-  // Se não houver equipamentos salvos, cria lista padrão
-  if (equipamentos.length === 0) {
-    const equipamentosPadrao = [
-      { nome: 'Máquina A - 21257', tipo: 'Notebook' },
-      { nome: 'Máquina B - 24976', tipo: 'Desktop' },
-      { nome: 'Máquina C - 24176', tipo: 'Servidor' },
-      { nome: 'Máquina D - 21796', tipo: 'Notebook' },
-      { nome: 'Máquina E - 21785', tipo: 'Desktop' },
-      { nome: 'Máquina F - 20149', tipo: 'Servidor' },
-      { nome: 'Máquina G - 24552', tipo: 'Notebook' },
-      { nome: 'Máquina H - 21456', tipo: 'Desktop' }
-    ];
-
-    // Salva no localStorage
-    localStorage.setItem('equipamentos', JSON.stringify(equipamentosPadrao));
-  }
-}
-
-// Renderiza a lista de equipamentos na aba
-function renderizarEquipamentos() {
-  const container = document.getElementById('listaEquipamentosPrincipal');
-  container.innerHTML = ''; // Limpa conteúdo anterior
-
-  const equipamentos = JSON.parse(localStorage.getItem('equipamentos')) || [];
-
-  // Se não houver equipamentos, mostra mensagem
-  if (equipamentos.length === 0) {
-    container.innerHTML = '<p class="text-gray-600">Nenhum equipamento cadastrado.</p>';
-    return;
-  }
-
-  // Para cada equipamento, cria o elemento HTML
-  equipamentos.forEach(eq => {
-    const div = document.createElement('div');
-    div.className = 'p-4 bg-white rounded shadow mb-4';
-
-    // Agora o nome já inclui o número de série
-    div.innerHTML = `
-      <h3 class="font-bold text-lg">${eq.nome}</h3>
-      <p class="text-gray-700">Tipo: ${eq.tipo}</p>
-    `;
-
-    container.appendChild(div);
-  });
-}
-
-// Chamada ao carregar a página
-inicializarEquipamentosPadrao();
-renderizarEquipamentos();
-
-
-
-
+  
 function carregarFuncionariosNoSelect() {
   const select = document.getElementById('nomeFuncionario');
 
@@ -645,6 +635,7 @@ renderizarEquipamentos();
 </script>
 </body>
 </html>
+
 
 
 
